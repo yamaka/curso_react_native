@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import Calculadora from './Calculadora';
 
 const repasoes6 = () =>{
   console.log("hola mundo");
@@ -131,13 +132,16 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Hola Ruddy</Text>
+     {/*  <Text>Hola Ruddy</Text>
       <Button
         onPress={onPress}
         title="Boton"
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
-      />
+      /> */}
+
+      <Calculadora/>
+
       <StatusBar style="auto" />
     </View>
   );
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
+    
     justifyContent: 'center',
   },
 });
