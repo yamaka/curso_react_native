@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
+import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity } from "react-native";
 
 export default function Calculadora(){
-    const [numeroA, setNumeroA] = useState(0);
-    const [numeroB, setNumeroB] = useState(0);
-    const [numeroR, setNumeroR] = useState(0);
+    const [numeroA, setNumeroA] = useState('');
+    const [numeroB, setNumeroB] = useState('');
+    const [numeroR, setNumeroR] = useState('');
     const onChangeNumberA = (valor) =>{
         console.log(valor)
         if(valor !== ""){
@@ -26,18 +26,20 @@ export default function Calculadora(){
         setNumeroR(valor)
     }
     const operar = (tipo) =>{
+      console.log("operar", tipo);
         switch (tipo) {
           case "+":
-            setNumeroR(numeroA + numeroB);
+             console.log("operar", numeroA + numeroB);
+            setNumeroR((numeroA + numeroB).toString());
             break;
           case "-":
-            setNumeroR(numeroA - numeroB);
+            setNumeroR((numeroA - numeroB).toString());
             break;
           case "*":
-            setNumeroR(numeroA * numeroB);
+            setNumeroR((numeroA * numeroB).toString());
             break;
           case "/":
-            setNumeroR(numeroA / numeroB);
+            setNumeroR((numeroA / numeroB).toString());
             break;
          
         }
@@ -49,26 +51,58 @@ export default function Calculadora(){
           value={numeroA}
           onChangeText={onChangeNumberA}
           placeholder="Numero A"
+          keyboardType="numeric"
           
         />
         <View
           style={{
             flexDirection: "row",
-            flex: 1,
+            width: '100%',
             justifyContent: "space-around",
-            height: 10,
+            height: 60,
           }}
         >
-          <Button onPress={() => operar("+")} title="+" color="#841584" />
+          <TouchableOpacity   
+            activeOpacity={0.8}
+            onPress={() => operar("+")}
+            style={styles.appButtonContainer}
+          >
+            <Text style={styles.appButtonText}>{"+"}</Text>
+          </TouchableOpacity>
+
+
+          <TouchableOpacity   
+            activeOpacity={0.8}
+            onPress={() => operar("-")}
+            style={styles.appButtonContainer}
+          >
+            <Text style={styles.appButtonText}>{"-"}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity   
+            activeOpacity={0.8}
+            onPress={() => operar("*")}
+            style={styles.appButtonContainer}
+          >
+            <Text style={styles.appButtonText}>{"*"}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity   
+            activeOpacity={0.8}
+            onPress={() => operar("/")}
+            style={styles.appButtonContainer}
+          >
+            <Text style={styles.appButtonText}>{"/"}</Text>
+          </TouchableOpacity>
+         {/*  <Button onPress={() => operar("+")} title="+" color="#841584" />
           <Button onPress={() => operar("-")} title="-" color="#841584" />
           <Button onPress={() => operar("*")} title="*" color="#841584" />
-          <Button onPress={() => operar("/")} title="/" color="#841584" />
+          <Button onPress={() => operar("/")} title="/" color="#841584" /> */}
         </View>
         <TextInput
           style={styles.input}
           value={numeroB}
           onChangeText={onChangeNumberB}
           placeholder="Numero B"
+          keyboardType="numeric"
           
         />
         <View
@@ -80,7 +114,7 @@ export default function Calculadora(){
           style={styles.input}
           value={numeroR}
           placeholder="Resultado"
-          
+          keyboardType="numeric"
         />
       </View>
     );
@@ -94,4 +128,20 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     borderWidth: 1,
   },
+   appButtonContainer: {
+    elevation: 8,
+    backgroundColor: "#009688",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    width: 50,
+    justifyContent:"center"
+  },
+  appButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
+  }
 });

@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useEffect} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import Calculadora from './Calculadora';
+import CalculadoraV2 from './src/components/CalculadoraV2';
 
 const repasoes6 = () =>{
   console.log("hola mundo");
@@ -132,15 +133,10 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-     {/*  <Text>Hola Ruddy</Text>
-      <Button
-        onPress={onPress}
-        title="Boton"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      /> */}
-
-      <Calculadora/>
+     
+  
+     {/*  <Calculadora/> */}
+      <CalculadoraV2/>
 
       <StatusBar style="auto" />
     </View>
