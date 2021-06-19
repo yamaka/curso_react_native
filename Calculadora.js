@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity } from "react-native";
 
+import StylesBase from "./src/styles/StylesBase";
+
 export default function Calculadora(){
     const [numeroA, setNumeroA] = useState('');
     const [numeroB, setNumeroB] = useState('');
@@ -65,32 +67,32 @@ export default function Calculadora(){
           <TouchableOpacity   
             activeOpacity={0.8}
             onPress={() => operar("+")}
-            style={styles.appButtonContainer}
+            style={StylesBase.appButtonContainer}
           >
-            <Text style={styles.appButtonText}>{"+"}</Text>
+            <Text style={StylesBase.appButtonText}>{"+"}</Text>
           </TouchableOpacity>
 
 
           <TouchableOpacity   
             activeOpacity={0.8}
             onPress={() => operar("-")}
-            style={styles.appButtonContainer}
+            style={StylesBase.appButtonContainer}
           >
-            <Text style={styles.appButtonText}>{"-"}</Text>
+            <Text style={StylesBase.appButtonText}>{"-"}</Text>
           </TouchableOpacity>
           <TouchableOpacity   
             activeOpacity={0.8}
             onPress={() => operar("*")}
-            style={styles.appButtonContainer}
+            style={StylesBase.appButtonContainer}
           >
-            <Text style={styles.appButtonText}>{"*"}</Text>
+            <Text style={StylesBase.appButtonText}>{"*"}</Text>
           </TouchableOpacity>
           <TouchableOpacity   
             activeOpacity={0.8}
             onPress={() => operar("/")}
-            style={styles.appButtonContainer}
+            style={styleStylesBases.appButtonContainer}
           >
-            <Text style={styles.appButtonText}>{"/"}</Text>
+            <Text style={StylesBase.appButtonText}>{"/"}</Text>
           </TouchableOpacity>
          {/*  <Button onPress={() => operar("+")} title="+" color="#841584" />
           <Button onPress={() => operar("-")} title="-" color="#841584" />
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     borderWidth: 1,
   },
-   appButtonContainer: {
+  /*  appButtonContainer: {
     elevation: 8,
     backgroundColor: "#009688",
     borderRadius: 10,
@@ -143,5 +145,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase"
-  }
+  } */
 });

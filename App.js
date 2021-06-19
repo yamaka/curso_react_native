@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import Calculadora from './Calculadora';
-import CalculadoraV2 from './src/components/CalculadoraV2';
+//import Calculadora from './Calculadora';
+//import CalculadoraV2 from './src/components/CalculadoraV2';
+import CiclosDeVida from './CiclosDeVida';
 
 const repasoes6 = () =>{
   console.log("hola mundo");
@@ -136,8 +137,8 @@ export default function App() {
      
   
      {/*  <Calculadora/> */}
-      <CalculadoraV2/>
-
+      {/* <CalculadoraV2/> */}
+      <CiclosDeVida/>
       <StatusBar style="auto" />
     </View>
   );

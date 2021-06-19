@@ -8,7 +8,7 @@ const CalculadoraV2 = () =>{
     const [numeroA, setNumeroA] = useState('');
     const [numeroB, setNumeroB] = useState('');
     const [numeroR, setNumeroR] = useState('');
-    const [textDisplay, setTextDisplay] = useState(numeroA);
+    const [textDisplay, setTextDisplay] = useState('');
     const [operador, setOperador] = useState('')
     const [placeHolder, setPlaceHolder] = useState("Numero A")
   
@@ -26,19 +26,34 @@ const CalculadoraV2 = () =>{
 
     const operar = (operador) =>{
         console.log("operar")
-        setPlaceHolder("Numero B")
-        setTextDisplay(''); 
-        setOperador(operador);
+        if(numeroA != ""){
+            setPlaceHolder("Numero B")
+            setTextDisplay(''); 
+            setOperador(operador);
+        }
     }
 
     const resultado = () =>{
-
+        let resultado = 0;
           switch(operador){
-            case '+': setTextDisplay((numeroA + numeroB).toString());  break;
+            case '+': resultado = (numeroA + numeroB).toString();  break;
+            case '-': resultado = (numeroA - numeroB).toString();  break;
+            case '*': resultado = (numeroA * numeroB).toString();  break;
+            case '/': resultado = (numeroA / numeroB).toString();  break;
         }
+        setTextDisplay(resultado);
+        setNumeroA(parseInt(resultado));
     }
     
-    
+    const reset = () =>{
+        setNumeroA('');
+        setNumeroB('');
+        setNumeroR('');
+        setTextDisplay('');
+        setPlaceHolder("Numero A")
+        setOperador('');
+
+    }
 
     return (
         <View style={styles.container}>
@@ -52,10 +67,14 @@ const CalculadoraV2 = () =>{
             />
             <View style={styles.containerButtons}>
                 <ButtonCustom textButton="+" onPress={() => operar('+')}/>
-                <ButtonCustom textButton="-"/>
-                <ButtonCustom textButton="*"/>
-                <ButtonCustom textButton="/"/>
+                <ButtonCustom textButton="-" onPress={() => operar('-')}/>
+                <ButtonCustom textButton="*" onPress={() => operar('*')}/>
+                <ButtonCustom textButton="/" onPress={() => operar('/')}/>
                 <ButtonCustom textButton="=" onPress={() => resultado()}/>
+            </View>
+
+            <View style={[styles.containerButtons, {justifyContent:"flex-end", paddingRight: 5}]}>
+                <ButtonCustom textButton="reset" onPress={() => reset()}/>
             </View>
 
         </View>
