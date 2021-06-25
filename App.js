@@ -6,6 +6,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import CiclosDeVida from './CiclosDeVida';
 import TiposComida from './src/components/TiposComida/TiposComida';
 import Users from './src/components/Users';
+import Cursos from './src/components/Cursos';
 
 const repasoes6 = () =>{
   console.log("hola mundo");
@@ -142,7 +143,8 @@ export default function App() {
       {/* <CalculadoraV2/> */}
       {/* <CiclosDeVida/> */}
       {/* <TiposComida/> */}
-      <Users />
+      {/* <Users /> */}
+      <Cursos />
       <StatusBar style="auto" />
     </View>
   );
