@@ -4,13 +4,17 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 
 const FormCurso = ({
     setShowForm,
-    getCursos
+    getCursos,
+    titleForm = "Crear Curso",
+    textSubmitFormButton = "Agregar",
+    curso,
+    idCursoEdit
 }) => {
 
     const [formCurso, setFormCurso] = useState({
-        titulo:"",
-        desc: "",
-        imagen:"",
+        titulo: curso.titulo,
+        desc: curso.desc,
+        imagen: curso.imagen,
     });
 
     const onChangeInput  = (valor, key) =>{
@@ -23,46 +27,57 @@ const FormCurso = ({
         //const form = {titulo: "react native", desc: " creado por facebook", imagen:"", }
     }
 
-    const addCurso = () =>{
-        const {titulo, desc, imagen} = formCurso
-        const params = {
-          titulo: titulo,
-          descripcion: desc,
-          imagen: imagen,
-        };
-        axios.post("http://localhost:8080/api/cursos", params)
-        .then(response =>{
+    const crearYActualizar = (tipo) =>{
+        const { titulo, desc, imagen } = formCurso;
+         const params = {
+           titulo: titulo,
+           descripcion: desc,
+           imagen: imagen,
+         };
+        if(tipo == "Agregar"){
+            axios.post("http://localhost:8080/api/cursos", params).then((response) => {
             setShowForm(false);
             getCursos();
-        });
-
+            });
+        }else if (tipo == "Actualizar") {
+          
+          axios.put(`http://localhost:8080/api/cursos/${idCursoEdit}`, params)
+          .then(response =>{
+              setShowForm(false);
+              getCursos();
+          });
+    
+        }
     }
 
     return (
       <View style={styles.container}>
-        <Text style={styles.textTitle}>Crear Curso</Text>
+        <Text style={styles.textTitle}>{titleForm}</Text>
 
         <TextInput
           style={styles.input}
           value={formCurso.titulo}
-          onChangeText={ valor => onChangeInput(valor, "titulo")}
+          onChangeText={(valor) => onChangeInput(valor, "titulo")}
           placeholder={"Titulo"}
         />
         <TextInput
           style={styles.input}
           value={formCurso.desc}
-          onChangeText={ valor => onChangeInput(valor, "desc")}
+          onChangeText={(valor) => onChangeInput(valor, "desc")}
           placeholder={"Descripccion"}
         />
         <TextInput
           style={styles.input}
           value={formCurso.imagen}
-          onChangeText={ valor => onChangeInput(valor, "imagen")}
+          onChangeText={(valor) => onChangeInput(valor, "imagen")}
           placeholder={"Imagen"}
         />
 
-        <TouchableOpacity style={styles.button} onPress={() => addCurso()}>
-          <Text style={styles.textButton}>Agregar</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => crearYActualizar(textSubmitFormButton)}
+        >
+          <Text style={styles.textButton}>{textSubmitFormButton}</Text>
         </TouchableOpacity>
       </View>
     );

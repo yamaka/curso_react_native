@@ -7,7 +7,8 @@ const CardCurso = ({
     titulo,
     imagen,
     descripcion,
-    deleteCurso
+    deleteCurso,
+    editarCurso
 }) => {
 
   return (
@@ -22,12 +23,27 @@ const CardCurso = ({
       />
       <View style={{ width: "100%" }}>
         <Text style={{ alignSelf: "center" }}>{descripcion}</Text>
-        <TouchableOpacity
-          onPress={() => deleteCurso(id)}
+        <View
           style={{ flexDirection: "row", flex: 1, justifyContent: "flex-end" }}
         >
-          <Text style={{ color: "#0000EE" }}>Eliminar</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => editarCurso(id)}
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <Text style={{ color: "#0000EE" }}>Editar </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+            onPress={() => deleteCurso(id)}
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <Text style={{ color: "#0000EE" }}>Eliminar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
