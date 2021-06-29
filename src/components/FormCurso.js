@@ -35,17 +35,20 @@ const FormCurso = ({
            imagen: imagen,
          };
         if(tipo == "Agregar"){
-            axios.post("http://localhost:8080/api/cursos", params).then((response) => {
-            setShowForm(false);
-            getCursos();
-            });
+            axios
+              .post("http://192.168.0.3:8080/api/cursos", params)
+              .then((response) => {
+                setShowForm(false);
+                getCursos();
+              });
         }else if (tipo == "Actualizar") {
           
-          axios.put(`http://localhost:8080/api/cursos/${idCursoEdit}`, params)
-          .then(response =>{
+          axios
+            .put(`http://192.168.0.3:8080/api/cursos/${idCursoEdit}`, params)
+            .then((response) => {
               setShowForm(false);
               getCursos();
-          });
+            });
     
         }
     }

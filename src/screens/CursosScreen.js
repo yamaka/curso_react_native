@@ -9,12 +9,13 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
+  Button
 } from "react-native";
 
-import CardCurso from "./CardCurso";
-import FormCurso from "./FormCurso";
+import CardCurso from "../components/CardCurso";
+import FormCurso from "../components/FormCurso";
 
-const Cursos = () => {
+const CursosScreen = ({navigation}) => {
   const [cursos, setCursos] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [titleForm, setTitleForm] = useState("Agregar Curso");
@@ -123,12 +124,17 @@ const Cursos = () => {
             idCursoEdit={idCursoEdit}
           />
         )}
+
+        <Button
+          title="Ir a Curso"
+          onPress={() => navigation.navigate("Curso")}
+        />
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default Cursos;
+export default CursosScreen;
 
 const styles = StyleSheet.create({
   container: {
