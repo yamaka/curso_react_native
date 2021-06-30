@@ -64,6 +64,12 @@ const CursosScreen = ({navigation}) => {
     setShowForm(true);
   };
 
+  const toDetailScreen = (idCurso) => {
+    navigation.navigate("Curso",{
+      idCurso: idCurso
+    });
+  };
+
   const renderCursos = () => {
     return (
       <>
@@ -73,6 +79,7 @@ const CursosScreen = ({navigation}) => {
             {...curso}
             deleteCurso={deleteCurso}
             editarCurso={editarCurso}
+            toDetailScreen={toDetailScreen}
           />
         ))}
       </>
