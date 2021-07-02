@@ -3,6 +3,8 @@ import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
 
 const LoginScreen = ({route, navigation}) => {
+    const {isLoading} = route.params;
+
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
 
@@ -13,11 +15,19 @@ const LoginScreen = ({route, navigation}) => {
         }
         axios.post("http://192.168.0.3:8080/api/auth/signin", params)
         .then(response =>{
-            const {setIsLoggedIn} = route.params;
+            const { setIsLoggedIn, setIsLoggedInStorage, setUserData } =
+              route.params;
             setIsLoggedIn(true)
-            
+            setIsLoggedInStorage("Y")
+            setUserData(response.data);
         })
         .catch(error => console.error(error));
+    }
+
+    if(isLoading){
+      return (<View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+        <Text>Cargando...</Text>
+      </View >)
     }
 
     return (
