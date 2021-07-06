@@ -77,6 +77,7 @@ const CursosScreen = ({navigation}) => {
           <CardCurso
             key={curso.id}
             {...curso}
+            curso={curso}
             deleteCurso={deleteCurso}
             editarCurso={editarCurso}
             toDetailScreen={toDetailScreen}

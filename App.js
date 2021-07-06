@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //icons
@@ -21,12 +23,18 @@ import  UserScreen  from "./src/screens/UserScreen";
 
 //import Calculadora from './Calculadora';
 //import CalculadoraV2 from './src/components/CalculadoraV2';
-import CiclosDeVida from './CiclosDeVida';
-import TiposComida from './src/components/TiposComida/TiposComida';
-import Users from './src/components/Users';
-import Cursos from './src/components/Cursos';
+//import CiclosDeVida from './CiclosDeVida';
+//import TiposComida from './src/components/TiposComida/TiposComida';
+//import Users from './src/components/Users';
+//import Cursos from './src/components/Cursos';
+import CartBarAction from "./src/components/CartBarAction";
 
-  
+
+
+//context
+import {UserProvider} from "./src/context/UserContext";
+import { CartProvider } from "./src/context/CartContext";
+
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -97,13 +105,18 @@ export default function App() {
   const CursosStack = createStackNavigator();
 
   const CursosStackNavigator = () =>{
-    return (<CursosStack.Navigator>
-     
-      
-          <CursosStack.Screen name="Cursos" component={CursosScreen} />
-          <CursosStack.Screen name="Curso" component={CursoDetailScreen} />
-    
-    </CursosStack.Navigator>);
+    return (
+      <CursosStack.Navigator
+        screenOptions={{ 
+          headerRight: (props) => <CartBarAction {...props} />, 
+          headerRightContainerStyle:{justifyContent:"center", aligItems:"center"},
+          
+         }}
+      >
+        <CursosStack.Screen name="Cursos" component={CursosScreen} />
+        <CursosStack.Screen name="Curso" component={CursoDetailScreen} />
+      </CursosStack.Navigator>
+    );
   }
 
   const AuthStack = createStackNavigator();
@@ -139,10 +152,8 @@ export default function App() {
   //create a bottom tab navigator
   const Tab = createBottomTabNavigator();
 
-  return (
-    <NavigationContainer>
-      {isLoggedIn ? 
-        <Tab.Navigator>
+  const TabNavigator = () =>{
+    return <Tab.Navigator>
           <Tab.Screen
             name="Cursos"
             component={CursosStackNavigator}
@@ -171,10 +182,52 @@ export default function App() {
             }}
           />
           </Tab.Navigator>
-        : 
-          <AuthStackNavigator/>
-      }
-    </NavigationContainer>
+  }
+
+//create drawer navigator
+  const Drawer = createDrawerNavigator();
+
+  const DrawerNavigator = () => {
+    return (
+      <Drawer.Navigator>
+        <Drawer.Screen
+          name="Home"
+          component={TabNavigator}
+          options={{
+            drawerLabel: "Cursos",
+            drawerIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="home" color={color} size={size} />
+            ),
+            
+          }}
+          
+        />
+        <Drawer.Screen
+          name="Usuario"
+          component={UserScreen}
+          options={{
+            drawerLabel: "Usuario",
+            drawerIcon: ({ color, size }) => (
+              <FontAwesome name="user" color={color} size={size} />
+            ),
+          }}
+          initialParams={{
+            getUserData: getUserData,
+            logout,
+          }}
+        />
+      </Drawer.Navigator>
+    );
+  };
+
+  return (
+    <UserProvider>
+      <CartProvider>
+      <NavigationContainer>
+        {isLoggedIn ? <DrawerNavigator /> : <AuthStackNavigator />}
+      </NavigationContainer>
+      </CartProvider>
+    </UserProvider>
   );
 }
 

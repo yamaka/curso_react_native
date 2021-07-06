@@ -1,13 +1,19 @@
-import React, {useEffect, useState} from 'react'
-import { StyleSheet, Text, View, StatusBar, Button } from 'react-native'
+import React, {useEffect, useContext} from 'react'
+import { StyleSheet, Text, View, StatusBar, Button, Image } from 'react-native'
+
+import InfoUserData from '../components/InfoUserData'
+
+//context
+import UserContext from '../context/UserContext'
+
 
 const UserScreen = ({route, navigation}) => {
     
     const { getUserData, logout } = route.params;
-    const [userData, setUserData] = useState({
-        username:"",
-        email:""
-    })
+    const [ userStateContext, setUserStateContext ] = useContext(UserContext); 
+
+    console.log("UserScreen userStateContext", userStateContext);
+
     useEffect(() =>{
        getUserDataStorage();
     },[])
@@ -15,9 +21,9 @@ const UserScreen = ({route, navigation}) => {
     const getUserDataStorage = async () =>{
         try {
             const userStorage = await getUserData();
-            setUserData({
-            ...userData,
-            ...{ username: userStorage.username, email: userStorage.email },
+            setUserStateContext({
+              ...userStateContext,
+              ...{ username: userStorage.username, email: userStorage.email },
             });
             
         } catch (error) {
@@ -26,21 +32,11 @@ const UserScreen = ({route, navigation}) => {
     }
 
 
+
     return (
       <View style={styles.container}>
         <Text>Datos del Usuario</Text>
-
-        <View>
-          <View style={styles.labelText}>
-            <Text>Usuario: </Text>
-            <Text> {userData.username}</Text>
-          </View>
-          <View style={styles.labelText}>
-            <Text>Email: </Text>
-            <Text> {userData.email}</Text>
-          </View>
-        </View>
-
+        <InfoUserData/>
         <View>
             <Button title="Cerra Session" onPress={() => logout()}/>
         </View>
